@@ -1,14 +1,14 @@
 Django Admin LogEntry utilities
 ===============================
 
-This is a small collection of utilities to enhance Django Admin's [LogEntry model](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#logentry-objects) so it can be leveraged to log and view events happening outside of Django Admin.
+This is a small collection of utilities to enhance [Django Admin's `LogEntry` model](https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#logentry-objects) so it can be leveraged to log and view events happening outside of Django Admin.
 
 
 Installation
 ------------
 
 - Import the classes in your code
-- Optionnal: Inherit serializers from ChangeLoggerMixin so all user modifications (PATCH) are logged automatically
+- Optionnal: Inherit serializers from `ChangeLoggerMixin` so all user modifications (PATCH) are logged automatically
 - Optionnal: Add `logged_events` queryset manager to your models so you can access log entries conveniently
 
 
@@ -31,10 +31,11 @@ log_event(my_object, 'Status became false')
 
 # Object changed because of a user action
 def change_value_view(self):
+    value = self.request.POST.get('value')
     my_object=Class.object.get(pk=self.request.POST.get('id'))
-    my_object.value = self.request.POST.get('value')
+    my_object.value = value
     my_object.save()
-    log_event(my_object, 'Status became false', self.request.user)
+    log_event(my_object, 'Value changed to' + value, self.request.user)
 ```
 
 ### Accessing log entries
