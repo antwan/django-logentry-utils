@@ -40,6 +40,13 @@ def change_value_view(self):
 
 ### Accessing log entries
 
+#### Using Django admin
+
+Simply browse the model object page, and click "History" to view all related events.
+
+
+#### From the console
+
 ```
 from utils import logged_events
 
